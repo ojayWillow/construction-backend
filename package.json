@@ -1,0 +1,31 @@
+{
+  "name": "construction-backend",
+  "version": "1.0.0",
+  "description": "Backend API for construction company website with Telegram integration",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
+  },
+  "keywords": [
+    "construction",
+    "api",
+    "telegram",
+    "contact-form"
+  ],
+  "author": "ojayWillow",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "helmet": "^7.1.0",
+    "express-rate-limit": "^7.1.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}
