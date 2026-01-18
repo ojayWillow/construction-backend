@@ -9,6 +9,9 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+// Import routes
+const contactRoute = require('./routes/contact');
+
 // Security middleware
 app.use(helmet());
 
@@ -22,6 +25,14 @@ app.use(cors(corsOptions));
 // Body parser middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Request logging middleware (development)
+if (process.env.NODE_ENV === 'development') {
+  app.use((req, res, next) => {
+    console.log(`${new Date().toISOString()} - ${req.method} ${req.path}`);
+    next();
+  });
+}
 
 // Health check endpoint
 app.get('/health', (req, res) => {
@@ -39,10 +50,13 @@ app.get('/', (req, res) => {
     version: '1.0.0',
     endpoints: {
       health: '/health',
-      contact: '/api/contact (coming soon)'
+      contact: '/api/contact'
     }
   });
 });
+
+// API Routes
+app.use('/api/contact', contactRoute);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
@@ -67,6 +81,7 @@ app.listen(PORT, () => {
   console.log(`🚀 Server is running on port ${PORT}`);
   console.log(`📍 Environment: ${process.env.NODE_ENV || 'development'}`);
   console.log(`🔗 API URL: http://localhost:${PORT}`);
+  console.log(`📧 Contact endpoint: http://localhost:${PORT}/api/contact`);
 });
 
 module.exports = app;
